@@ -17,14 +17,12 @@
         <ListView Margin="10,106,9.6,10" Name="lvTask">            
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="Name: " />
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                            <TextBlock Text=", " />
-                            <TextBlock Text="Priority: " />
+                    <WrapPanel>
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        <TextBlock Text=" | Priority: " />
                             <TextBlock Text="{Binding Priority}" FontWeight="Bold" />
-                            <TextBlock Text="Time: " />
-                            <TextBlock Text="{Binding TimeScale}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                            <TextBlock Text=" | Time: " />
+                            <TextBlock Text="{Binding TimeScale}" />
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
