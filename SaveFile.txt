@@ -1,3 +1,2 @@
-Name,1,Time Scale( 10 / 20 / 30 )
-Name2,2,Time Scale( 10 / 20 / 30 )
-Name2,2,Time Scale( 10 / 20 / 30 )
+test,1,10,
+test,2,30,TestNOte

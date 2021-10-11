@@ -10,23 +10,13 @@
         <Button Name="btnAddTask" Content="Add Task" HorizontalAlignment="Left" Margin="185,20,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddTask_Click"/>
         <Button Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="309,20,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
         <Button Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="309,49,0,0" VerticalAlignment="Top" Width="75" Click="BtnLoad_Click"/>
-        <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="24,21,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="txtPriority" HorizontalAlignment="Left" Height="23" Margin="24,50,0,0" TextWrapping="Wrap" Text="Priority (1-10)" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="24,78,0,0" TextWrapping="Wrap" Text="Time Scale( 10 / 20 / 30 )" VerticalAlignment="Top" Width="120"/>
-        <!--<DataGrid ItemsSource="{Binding TaskList}" Name="dgridTask" HorizontalAlignment="Left" Height="282" Margin="24,128,0,0" VerticalAlignment="Top" Width="344"/>-->
-        <ListView Margin="10,106,9.6,10" Name="lvTask">            
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                    <WrapPanel>
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                        <TextBlock Text=" | Priority: " />
-                            <TextBlock Text="{Binding Priority}" FontWeight="Bold" />
-                            <TextBlock Text=" | Time: " />
-                            <TextBlock Text="{Binding TimeScale}" />
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        
+        <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="24,21,0,0" TextWrapping="Wrap" Text="test" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="txtPriority" HorizontalAlignment="Left" Height="23" Margin="24,50,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="24,78,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120"/>
+        <DataGrid ItemsSource="{Binding TaskList}" Name="dgridTask" HorizontalAlignment="Left" Height="282" Margin="10,128,0,0" VerticalAlignment="Top" Width="374"/>
+        <CheckBox Name="cbxHPriority" Content="High Priority" HorizontalAlignment="Left" Margin="161,53,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="cbxQuick" Content="10 mins" HorizontalAlignment="Left" Margin="161,73,0,0" VerticalAlignment="Top"/>
+
+
     </Grid>
 </Window>

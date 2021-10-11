@@ -15,12 +15,14 @@ namespace TaskOrgraniser
         public string Name { get; set; }
         public int Priority { get; set; }
         public string TimeScale { get; set; }
+        public string Notes { get; set; }
 
-        public Task(string _name, int _pr, string _time)
+        public Task(string _name, int _pr, string _time,string _notes)
         {
             Name = _name;
             Priority = _pr;
             TimeScale = _time;
+            Notes = _notes;
         }
     }
 }

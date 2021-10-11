@@ -34,16 +34,16 @@ namespace TaskOrgraniser
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e)
         {
-            TaskList.Add(new Task(txtName.Text, Convert.ToInt32(txtPriority.Text), txtTime.Text));
+            TaskList.Add(new Task(txtName.Text, Convert.ToInt32(txtPriority.Text), txtTime.Text, ""));
             PopulateList();
         }
 
         private void PopulateList()
         {
-            lvTask.ItemsSource = null;
+            dgridTask.ItemsSource = null;
             if (TaskList.Count != 0)
             {
-                lvTask.ItemsSource = TaskList;
+                dgridTask.ItemsSource = TaskList;
             }
         }
 
@@ -65,7 +65,7 @@ namespace TaskOrgraniser
 
                 foreach (Task task in TaskList)
                 {
-                    data.Add(task.Name + "," + task.Priority + "," + task.TimeScale);
+                    data.Add(task.Name + "," + task.Priority + "," + task.TimeScale + "," + task.Notes);
                 }
 
                 string filepath = "C:/Users/seang/Desktop/IN DEV/TaskOrgraniser/SaveFile.txt";
@@ -90,20 +90,20 @@ namespace TaskOrgraniser
             {
                 int counter = 0;
                 string line;
-
+                TaskList.Clear();
                 // Read the file and display it line by line.  
                 System.IO.StreamReader file =
                     new System.IO.StreamReader(@"C:/Users/seang/Desktop/IN DEV/TaskOrgraniser/SaveFile.txt");
                 while ((line = file.ReadLine()) != null)
                 {
-                    System.Console.WriteLine(line);
+                    string[] items = line.Split(',');
+                    TaskList.Add(new Task(items[0], Convert.ToInt32(items[1]), items[2],items[3]));
                     counter++;
                 }
 
+                PopulateList();
                 file.Close();
-                System.Console.WriteLine("There were {0} lines.", counter);
-                // Suspend the screen.  
-                System.Console.ReadLine();
+                
 
             }
             catch (Exception ex)
