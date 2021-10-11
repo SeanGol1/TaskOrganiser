@@ -79,7 +79,7 @@ namespace TaskOrgraniser
                     data.Add(task.Name + "," + task.Priority + "," + task.TimeScale + "," + task.Notes);
                 }
 
-                string filepath = "C:/Users/seang/Desktop/IN DEV/TaskOrgraniser/SaveFile.txt";
+                string filepath = "../SaveFile.txt";
                 File.WriteAllLines(filepath, data);
 
                 // Info.  
@@ -104,7 +104,7 @@ namespace TaskOrgraniser
                 TaskList.Clear();
                 // Read the file and display it line by line.  
                 System.IO.StreamReader file =
-                    new System.IO.StreamReader(@"C:/Users/seang/Desktop/IN DEV/TaskOrgraniser/SaveFile.txt");
+                    new System.IO.StreamReader(@"../SaveFile.txt");
                 while ((line = file.ReadLine()) != null)
                 {
                     string[] items = line.Split(',');
@@ -124,6 +124,8 @@ namespace TaskOrgraniser
                 Console.Write(ex);
             }
         }
+
+       
 
         private void CbxHPriority_Checked(object sender, RoutedEventArgs e)
         {
