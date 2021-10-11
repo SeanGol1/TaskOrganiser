@@ -14,8 +14,8 @@
         <TextBox Name="txtPriority" HorizontalAlignment="Left" Height="23" Margin="24,50,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="24,78,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120"/>
         <DataGrid ItemsSource="{Binding TaskList}" Name="dgridTask" HorizontalAlignment="Left" Height="282" Margin="10,128,0,0" VerticalAlignment="Top" Width="374"/>
-        <CheckBox Name="cbxHPriority" Content="High Priority" HorizontalAlignment="Left" Margin="161,53,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="cbxQuick" Content="10 mins" HorizontalAlignment="Left" Margin="161,73,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="cbxHPriority" Content="High Priority" HorizontalAlignment="Left" Margin="161,53,0,0" VerticalAlignment="Top" Checked="CbxHPriority_Checked" Unchecked="CbxQuick_Unchecked"/>
+        <CheckBox Name="cbxQuick" Content="15 mins" HorizontalAlignment="Left" Margin="161,73,0,0" VerticalAlignment="Top" Checked="CbxQuick_Checked" Unchecked="CbxQuick_Unchecked"/>
 
 
     </Grid>

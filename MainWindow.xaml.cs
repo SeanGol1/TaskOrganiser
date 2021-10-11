@@ -25,25 +25,36 @@ namespace TaskOrgraniser
     public partial class MainWindow : Window
     {
         public List<Task> TaskList = new List<Task>();
+        public List<Task> tempTaskList = new List<Task>();
         public MainWindow()
         {
             InitializeComponent();
-            PopulateList();
+            PopulateList(true);
 
         }
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e)
         {
-            TaskList.Add(new Task(txtName.Text, Convert.ToInt32(txtPriority.Text), txtTime.Text, ""));
-            PopulateList();
+            TaskList.Add(new Task(txtName.Text, Convert.ToInt32(txtPriority.Text), Convert.ToInt32(txtTime.Text), ""));
+            PopulateList(true);
         }
 
-        private void PopulateList()
+        private void PopulateList(bool full)
         {
             dgridTask.ItemsSource = null;
-            if (TaskList.Count != 0)
+            if (full == true)
             {
-                dgridTask.ItemsSource = TaskList;
+                if (TaskList.Count != 0)
+                {
+                    dgridTask.ItemsSource = TaskList;
+                }
+            }
+            else
+            {
+                if (tempTaskList.Count != 0)
+                {
+                    dgridTask.ItemsSource = tempTaskList;
+                }
             }
         }
 
@@ -97,13 +108,13 @@ namespace TaskOrgraniser
                 while ((line = file.ReadLine()) != null)
                 {
                     string[] items = line.Split(',');
-                    TaskList.Add(new Task(items[0], Convert.ToInt32(items[1]), items[2],items[3]));
+                    TaskList.Add(new Task(items[0], Convert.ToInt32(items[1]), Convert.ToInt32(items[2]), items[3]));
                     counter++;
                 }
 
-                PopulateList();
+                PopulateList(true);
                 file.Close();
-                
+
 
             }
             catch (Exception ex)
@@ -112,6 +123,67 @@ namespace TaskOrgraniser
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Console.Write(ex);
             }
+        }
+
+        private void CbxHPriority_Checked(object sender, RoutedEventArgs e)
+        {
+
+            if (cbxQuick.IsChecked == true)
+            {
+                List<Task> newtemp = new List<Task>(tempTaskList);                 
+                tempTaskList.Clear();
+                foreach (Task item in newtemp)
+                {
+                    if (item.Priority > 7)
+                    {
+                        tempTaskList.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Task item in TaskList)
+                {
+                    if (item.Priority > 7)
+                    {
+                        tempTaskList.Add(item);
+                    }
+                }
+            }
+            PopulateList(false);
+        }
+
+        private void CbxQuick_Checked(object sender, RoutedEventArgs e)
+        {
+            if (cbxHPriority.IsChecked == true)
+            {
+                List<Task> newtemp = new List<Task>(tempTaskList);
+                tempTaskList.Clear();
+                foreach (Task item in newtemp)
+                {
+                    if (item.TimeScale <= 15)
+                    {
+                        tempTaskList.Add(item);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Task item in TaskList)
+                {
+                    if (item.TimeScale <= 15)
+                    {
+                        tempTaskList.Add(item);
+                    }
+                }
+            }
+            PopulateList(false);
+        }
+
+        private void CbxQuick_Unchecked(object sender, RoutedEventArgs e)
+        {
+            tempTaskList.Clear();
+            PopulateList(true);
         }
     }
 
