@@ -1,6 +1,8 @@
 # TaskOrganiser
 Simple WPF program to keep track of daily tasks.
 
+![TaskOrganiser](https://user-images.githubusercontent.com/14328800/137027400-84ecac74-5132-4166-ac57-ef9e215cfc6f.png)
+
 
 # About the Project
 
