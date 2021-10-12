@@ -24,59 +24,51 @@ namespace TaskOrgraniser
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Task> TaskList = new List<Task>();
-        public List<Task> tempTaskList = new List<Task>();
+        
+        public static List<Task> TaskList = new List<Task>();
+        public List<Task> tempTaskList;
         public MainWindow()
-        {
+        {            
             InitializeComponent();
-            PopulateList(true);
-
+            PopulateList();
         }
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e)
         {
-            TaskList.Add(new Task(txtName.Text, Convert.ToInt32(txtPriority.Text), Convert.ToInt32(txtTime.Text), ""));
-            PopulateList(true);
+            //Add Task to list   
+            TaskList.Add(new Task(txtName.Text, Convert.ToInt32(txtPriority.Text), Convert.ToInt32(txtTime.Text), Convert.ToDateTime(datepicker.SelectedDate)));
+            PopulateList();
         }
 
-        private void PopulateList(bool full)
+        private void PopulateList()
         {
+            //Clear the Datagrid
             dgridTask.ItemsSource = null;
-            if (full == true)
+
+            //Filter down the list based on the checkbox's
+            FilterCheck();
+
+            //Set temp list as display list
+            if (tempTaskList.Count != 0)
             {
-                if (TaskList.Count != 0)
-                {
-                    dgridTask.ItemsSource = TaskList;
-                }
-            }
-            else
-            {
-                if (tempTaskList.Count != 0)
-                {
-                    dgridTask.ItemsSource = tempTaskList;
-                }
+                dgridTask.ItemsSource = tempTaskList;
             }
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
-                // Verification.  
+            { 
                 if (TaskList.Count <= 0)
-                {
-                    // Message.  
-                    MessageBox.Show("There is no data available to export.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                    // Info.  
+                { 
+                    MessageBox.Show("There is no data available to export.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);  
                     return;
                 }
 
                 List<string> data = new List<string>();
-
                 foreach (Task task in TaskList)
                 {
-                    data.Add(task.Name + "," + task.Priority + "," + task.TimeScale + "," + task.Notes);
+                    data.Add(task.Name + "," + task.Priority + "," + task.TimeScale + "," + task.Notes + "," + task.DueDate);
                 }
 
                 string filepath = "../SaveFile.txt";
@@ -102,91 +94,64 @@ namespace TaskOrgraniser
                 int counter = 0;
                 string line;
                 TaskList.Clear();
-                // Read the file and display it line by line.  
+                // Read the file 
                 System.IO.StreamReader file =
                     new System.IO.StreamReader(@"../SaveFile.txt");
                 while ((line = file.ReadLine()) != null)
                 {
                     string[] items = line.Split(',');
-                    TaskList.Add(new Task(items[0], Convert.ToInt32(items[1]), Convert.ToInt32(items[2]), items[3]));
+
+                    //Create Task using ... Name , Priority , TimeScale , Notes , DueDate
+                    TaskList.Add(new Task(items[0], Convert.ToInt32(items[1]), Convert.ToInt32(items[2]), items[3], Convert.ToDateTime(items[4])));
                     counter++;
                 }
 
-                PopulateList(true);
+                PopulateList();
                 file.Close();
-
-
             }
             catch (Exception ex)
             {
                 // Info.  
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Console.Write(ex);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);             
             }
         }
 
-       
+        private void Cbx_Changed(object sender, RoutedEventArgs e)
+        { 
+            PopulateList();
+        }
 
-        private void CbxHPriority_Checked(object sender, RoutedEventArgs e)
+        //Checkbox / Filter Logic goes here
+        private void FilterCheck()
         {
+            //Temp list used to control the display items.
+            tempTaskList = new List<Task>(TaskList);
 
+            //If 15 min checkbox is ticket, remove other items from the list.
             if (cbxQuick.IsChecked == true)
             {
-                List<Task> newtemp = new List<Task>(tempTaskList);                 
-                tempTaskList.Clear();
+                List<Task> newtemp = new List<Task>(tempTaskList);
                 foreach (Task item in newtemp)
                 {
-                    if (item.Priority > 7)
+                    if (item.TimeScale > 15)
                     {
-                        tempTaskList.Add(item);
+                        tempTaskList.Remove(item);
                     }
                 }
             }
-            else
-            {
-                foreach (Task item in TaskList)
-                {
-                    if (item.Priority > 7)
-                    {
-                        tempTaskList.Add(item);
-                    }
-                }
-            }
-            PopulateList(false);
-        }
 
-        private void CbxQuick_Checked(object sender, RoutedEventArgs e)
-        {
+            //If High Priority checkbox is ticket, remove items under 8 from the list.
             if (cbxHPriority.IsChecked == true)
             {
                 List<Task> newtemp = new List<Task>(tempTaskList);
-                tempTaskList.Clear();
                 foreach (Task item in newtemp)
                 {
-                    if (item.TimeScale <= 15)
+                    if (item.Priority < 8)
                     {
-                        tempTaskList.Add(item);
+                        tempTaskList.Remove(item);
                     }
                 }
-            }
-            else
-            {
-                foreach (Task item in TaskList)
-                {
-                    if (item.TimeScale <= 15)
-                    {
-                        tempTaskList.Add(item);
-                    }
-                }
-            }
-            PopulateList(false);
-        }
-
-        private void CbxQuick_Unchecked(object sender, RoutedEventArgs e)
-        {
-            tempTaskList.Clear();
-            PopulateList(true);
+            }            
         }
     }
-
 }

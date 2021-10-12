@@ -10,12 +10,18 @@
         <Button Name="btnAddTask" Content="Add Task" HorizontalAlignment="Left" Margin="185,20,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddTask_Click"/>
         <Button Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="309,20,0,0" VerticalAlignment="Top" Width="75" Click="BtnSave_Click"/>
         <Button Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="309,49,0,0" VerticalAlignment="Top" Width="75" Click="BtnLoad_Click"/>
-        <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="24,21,0,0" TextWrapping="Wrap" Text="test" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="txtPriority" HorizontalAlignment="Left" Height="23" Margin="24,50,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="24,78,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120"/>
-        <DataGrid ItemsSource="{Binding TaskList}" Name="dgridTask" HorizontalAlignment="Left" Height="282" Margin="10,128,0,0" VerticalAlignment="Top" Width="374"/>
-        <CheckBox Name="cbxHPriority" Content="High Priority" HorizontalAlignment="Left" Margin="161,53,0,0" VerticalAlignment="Top" Checked="CbxHPriority_Checked" Unchecked="CbxQuick_Unchecked"/>
-        <CheckBox Name="cbxQuick" Content="15 mins" HorizontalAlignment="Left" Margin="161,73,0,0" VerticalAlignment="Top" Checked="CbxQuick_Checked" Unchecked="CbxQuick_Unchecked"/>
+        <TextBox Name="txtName" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="test" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="txtPriority" HorizontalAlignment="Left" Height="23" Margin="10,38,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="txtTime" HorizontalAlignment="Left" Height="23" Margin="10,66,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120"/>
+        <DataGrid ItemsSource="{Binding TaskList}" Name="dgridTask" HorizontalAlignment="Left" Height="282" Margin="10,128,0,0" VerticalAlignment="Top" Width="374">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding DueDate, StringFormat=\{0:dd.MM\}}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <CheckBox Name="cbxHPriority" Content="High Priority" HorizontalAlignment="Left" Margin="161,53,0,0" VerticalAlignment="Top" Checked="Cbx_Changed" Unchecked="Cbx_Changed"/>
+        <CheckBox Name="cbxQuick" Content="15 mins" HorizontalAlignment="Left" Margin="161,73,0,0" VerticalAlignment="Top" Checked="Cbx_Changed" Unchecked="Cbx_Changed"/>
+        <DatePicker Name="datepicker" SelectedDate="2021-12-31" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" IsDropDownOpen="True"/>
+
 
 
     </Grid>
